@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mir100_plates" description="iqr mir100">
+  <xacro:macro name="mir100_plates" params="parent *origin">
+  <xacro:property name="prefix" value="mir100_plates" />
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base"/>
+    </joint>
+    <link name="${prefix}_base">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://iqr_4d_description/mesh/plates.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.2 0.2 0.2 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://iqr_4d_description/mesh/plates_collision.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}_ur_surface"/>
+    <joint name="${prefix}_ur_surface_joint" type="fixed">
+      <origin xyz="0.23 0 0.505" rpy="0 0 0" />
+      <parent link="${prefix}_base"/>
+      <child link="${prefix}_ur_surface"/>
+    </joint>
+
+    <link name="${prefix}_pantilt_plate">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://iqr_4d_description/mesh/pantilt_plate.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.2 0.2 0.2 1" />
+        </material>
+      </visual>
+    </link>
+    <joint name="${prefix}_pantilt_plate_joint" type="fixed">
+      <origin xyz="0.35 0 0.2574" rpy="0 0 0" />
+      <parent link="${prefix}_base"/>
+      <child link="${prefix}_pantilt_plate"/>
+    </joint>
+
+    <link name="${prefix}_pantilt_surface"/>
+    <joint name="${prefix}_pantilt_surface_joint" type="fixed">
+      <origin xyz="0.0585 0 0" rpy="0 0 0" />
+      <parent link="${prefix}_pantilt_plate"/>
+      <child link="${prefix}_pantilt_surface"/>
+    </joint>
+
+  </xacro:macro>  
+</robot>

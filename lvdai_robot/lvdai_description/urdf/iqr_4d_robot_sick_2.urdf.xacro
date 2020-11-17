@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<robot name="iqr_mir100" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Include accessories -->
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+  <xacro:include filename="$(find realsense2_camera)/urdf/_d435.urdf.xacro"/>
+  <xacro:include filename="$(find iqr_4d_description)/urdf/kinect_v2.urdf.xacro" />
+  <xacro:include filename="$(find pan_tilt_description)/urdf/pan_tilt.urdf.xacro" />
+  <xacro:include filename="$(find iqr_4d_description)/urdf/mir100_plates.urdf.xacro" />
+  <xacro:include filename="$(find mir_description)/urdf/include/mir_100_v1.urdf.xacro" />
+  <xacro:include filename="$(find iqr_4d_description)/urdf/realsense_plate.urdf.xacro" />
+  <xacro:include filename="$(find iqr_4d_description)/urdf/sick_lms5xx.urdf.xacro" />
+  <xacro:include filename="$(find srt_gripper_description)/urdf/srt_gripper.urdf.xacro" />
+  <!-- <xacro:include filename="$(find iqr_4d_description)/urdf/realsense_d435.urdf.xacro" /> -->
+
+  <xacro:mir_100 prefix=""/>
+  
+  <!-- mir100 plates -->
+  <xacro:mir100_plates parent="surface" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:mir100_plates>
+
+  <!-- Universal Robot UR5 -->
+  <xacro:ur5_robot prefix="ur5_arm_" joint_limited="true"
+    shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
+    shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
+    elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
+    wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}"
+    wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}"
+    wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}"
+  />
+
+  <joint name="ur5_arm_base" type="fixed">
+    <parent link="mir100_plates_ur_surface" />
+    <child link="ur5_arm_base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963" />
+  </joint>
+
+  <!-- srt gripper -->
+  <xacro:srt_gripper parent="ur5_arm_ee_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:srt_gripper>
+
+  <!-- realsense d435 plate -->
+  <xacro:realsense_plate parent="ur5_arm_ee_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:realsense_plate>
+
+  <!-- realsense d435 -->
+<!--   <xacro:realsense_d435 parent="realsense_plate_surface" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:realsense_d435> -->
+  <sensor_d435 parent="realsense_plate_surface">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </sensor_d435>
+
+  <!-- iqr pan tilt -->
+  <xacro:pan_tilt parent="mir100_plates_pantilt_surface" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:pan_tilt>
+
+  <!-- kinect v2 -->
+  <xacro:kinect_v2 parent="pan_tilt_kinect_surface" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:kinect_v2>
+
+  <!-- SICK lidar -->
+  <link name= "sick_lidar_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="3.1416 0 0" />
+      <geometry>
+        <mesh filename="package://mir_description/meshes/visual/sick_lms-100.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual> 
+  </link>
+  <joint name="sick_lidar_link_joint" type="fixed">
+    <origin xyz="0 0.15 0.43" rpy="0.0 0.0 ${0.5 * pi}" />
+    <parent link="base_link"/>
+    <child link="sick_lidar_link"/>
+  </joint>
+  <!-- sick laser-->
+  <link name="sick_laser"/>
+  <joint name="sick_laser_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0.0 0.0 0" />
+    <parent link="sick_lidar_link"/>
+    <child link="sick_laser"/>
+  </joint>
+
+</robot>

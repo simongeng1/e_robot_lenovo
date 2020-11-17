@@ -1,0 +1,8 @@
+参考：https://blog.csdn.net/m0_37857300/article/details/82391023
+
+1.安装nmea-navsat-driver包，确认在/opt/ros/kinetic/include/目录下有nmea_msgs文件夹：
+
+sudo apt-get install ros-kinetic-nmea-navsat-driver libgps-dev
+
+2、打开新Terminal窗口打开ROS系统（相关ROS环境创建、ROS包编译等基础知识务必先在网上查清楚），输入
+

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="realsense_plate" description="iqr realsense plate">
+  <xacro:macro name="realsense_plate" params="parent *origin">
+  <xacro:property name="prefix" value="realsense_plate" />
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base"/>
+    </joint>
+    <link name="${prefix}_base">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://iqr_4d_description/mesh/realsense_fixed_105mm_15.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="1.0 1.0 1.0 1" />
+        </material>
+      </visual>
+    </link>
+    <link name="${prefix}_surface"/>
+    <joint name="${prefix}_surface_joint" type="fixed">
+      <origin xyz="0.013 0.0 0.0950" rpy="0 -0.26179938 0" />
+      <parent link="${prefix}_base"/>
+      <child link="${prefix}_surface"/>
+    </joint>
+  </xacro:macro>  
+</robot>

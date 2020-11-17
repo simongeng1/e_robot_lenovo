@@ -1,0 +1,18 @@
+imu_publish_10.23.21:36.zip
+	实现自动问答形式读取imu数据及固定频率读取imu数据频率为50hz运行正常。
+	偶尔会出现：
+	terminate called after throwing an instance of 'serial::SerialException'
+	  what():  SerialException device reports readiness to read but returned no data (device disconnected?) failed.
+	原因未知
+imu_publish_10.24.13:00.zip
+	测试版本，加入了累加和校验，修改了当没有完全接收时，二次接收函数，运行稳定
+	为了测试，报错时会停止运行。
+
+imu_publish_10.24.13:37.zip
+	添加操过48字节数据保存等待下次数据一起接收发布功能
+	测试时尚未出现此情况，效果未知
+	为了测试，报错会停止，
+	再次出现了terminate called after throwing an instance of 'serial::SerialException'
+  	what():  SerialException device reports readiness to read but returned no data (device disconnected?) failed.
+	Aborted (core dumped)
+
