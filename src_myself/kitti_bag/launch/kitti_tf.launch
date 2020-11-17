@@ -1,0 +1,26 @@
+<launch>
+<!--加载tf变换-->
+    <!--<node pkg="tf"  type="static_transform_publisher" name="world_to_map" args="0 0 -116.382 0.5225 0 0 /map /world 10" />-->
+    <node pkg="tf"  type="static_transform_publisher" name="world_to_map" args="0 0 0 0 0 0 /world /map 10" />
+    <!--加载点云地图-->
+    <!-- mapからmobilityへのtf -->
+    <!--<node pkg="tf"  type="static_transform_publisher" name="map_to_mobility" args="0 0 116.382 -0.52255 0 0 /map /mobility 10" />  -->
+    
+
+    <!--加载地图-->
+    
+<node pkg="map_file"  type="points_map_loader" name="points_map_loader" args="noupdate /home/simon/.autoware/bag/kittibag/kitti-7_imu.pcd" />
+    <!--<param name="frame_id" value="/map_"/>
+    </node>-->
+
+
+
+    <!--地图和map之间的tf-->
+    <!--<node pkg="tf"  type="static_transform_publisher" name="map__to_map" args="-8024.11 -1935.15 0 0 0 0 /map_ /map 10" />-->
+    <!--地图和world之间的tf-->
+    <!--<node pkg="tf"  type="static_transform_publisher" name="world_to_map" args="0 0 0 0 0 0 /world /map 10" />-->
+
+    <!--<node pkg="tf"  type="static_transform_publisher" name="imu_to_gps" args="0 0 0 0 0 0  /imu_link /gps 10" />-->
+    <!--加载velidyne的tf-->
+    <node pkg="tf"  type="static_transform_publisher" name="imu_to_velodyne" args="0 0 0 0 0 0  /imu_link /velodyne 10" />
+</launch> 

@@ -1,0 +1,20 @@
+<launch>
+
+  <!-- setting path parameter -->
+  <arg name="get_height" value="true" />
+
+
+  <include file="$(find vehicle_description)/launch/vehicle_model.launch" />
+
+  <!-- points downsampler -->
+  <include file="$(find points_downsampler)/launch/points_downsample.launch" />
+
+  <!-- nmea2tfpose -->
+  <!--<include file="$(find gnss_localizer)/launch/fix2tfpose.launch"/>-->
+
+  <!-- ndt_matching -->
+  <include file="$(find lidar_localizer)/launch/ndt_matching.launch">
+    <arg name="get_height" value="$(arg get_height)" />
+  </include>
+
+</launch>

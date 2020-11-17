@@ -1,0 +1,13 @@
+<launch>
+    <!-- <remap from="/camera/depth_registered/camera_info" to="/camera/depth/camera_info"/> -->
+    <!-- <remap from="/camera/depth_registered/image_raw" to="/camera/depth/image_raw"/> -->
+    
+    <node pkg="rosbag" type="play" name="playe" output="screen" args="-r 0.5 --clock /home/simon/data_bag/2011_10_03/bag/kitti_2011_10_03_drive_0027_synced_without_tf.bag">
+    <!-- 注意这里bag文件的路径必须为绝对路径-->
+            <remap from="/kitti/velo/pointcloud" to="/points_raw"/>
+            <remap from="/kitti/oxts/imu" to="/imu"/>
+            <remap from="/kitti/oxts/gps/fix" to="fix"/>
+     </node>
+     
+    
+</launch>
